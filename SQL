@@ -1,0 +1,37 @@
+-- 1. 创建产品基础信息表
+CREATE TABLE IF NOT EXISTS products (
+    id SERIAL PRIMARY KEY,
+    sap VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(255),
+    description TEXT,
+    size VARCHAR(100),
+    weight NUMERIC(10, 4) DEFAULT 0,
+    packing_pcs INT DEFAULT 1,
+    packing_volume NUMERIC(10, 6) DEFAULT 0,
+    category VARCHAR(100),
+    price NUMERIC(10, 4) DEFAULT 0,
+    image_url TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. 创建系统用户权限表
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    role VARCHAR(20) DEFAULT 'user',
+    active INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. 创建历史报价单记录表
+CREATE TABLE IF NOT EXISTS quotes (
+    id SERIAL PRIMARY KEY,
+    quote_no VARCHAR(50) UNIQUE NOT NULL,
+    customer_name VARCHAR(255),
+    items_json JSONB NOT NULL,
+    summary_json JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
